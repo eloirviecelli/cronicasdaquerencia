@@ -10,6 +10,7 @@ test('sitemap com 11 obras lista pagina/2 e só URLs absolutas', () => {
   const x = buildSitemap(config, many(11), 2);
   assert.match(x, /<loc>https:\/\/x\.github\.io\/repo\/pagina\/2\/<\/loc>/);
   assert.match(x, /<loc>https:\/\/x\.github\.io\/repo\/sobre\/<\/loc>/);
+  assert.match(x, /<loc>https:\/\/x\.github\.io\/repo\/privacidade\/<\/loc>/);
   assert.match(x, /<lastmod>2026-11-05<\/lastmod>/);
   assert.doesNotMatch(x, /404/);
   for (const [, loc] of x.matchAll(/<loc>(.*?)<\/loc>/g)) assert.ok(loc.startsWith(config.url));

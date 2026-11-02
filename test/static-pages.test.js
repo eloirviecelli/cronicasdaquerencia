@@ -17,3 +17,12 @@ test('404 noindex e link para a lista', () => {
   assert.match(h, /href="\/repo\/"/);
   assert.match(h, /href="\/repo\/style\.css"/);
 });
+
+import { renderPrivacyPage } from '../scripts/lib/pages.js';
+
+test('página de privacidade', () => {
+  const h = renderPrivacyPage(config, 'Texto de *privacidade*.');
+  assert.match(h, /<h1>Privacidade<\/h1>/);
+  assert.match(h, /<em>privacidade<\/em>/);
+  assert.match(h, /rel="canonical" href="https:\/\/x\.github\.io\/repo\/privacidade\/"/);
+});
