@@ -1,5 +1,6 @@
 import { esc } from './html.js';
 import { href, absUrl } from './config.js';
+import { marked } from 'marked';
 import { renderLayout } from './layout.js';
 
 const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
@@ -64,6 +65,43 @@ export function renderListPage(config, pageWorks, page, totalPages) {
       inLanguage: config.idioma,
       author: { '@type': 'Person', name: config.autor },
     }] : [],
+  };
+  return renderLayout(config, meta, body);
+}
+
+export function renderWorkPage(config, work, older, newer, size) {
+  const tipo = work.tipo === 'cronica' ? 'crônica' : 'conto';
+  const vizinha = (w, rel, rotulo) =>
+    w ? `<a rel="${rel}" href="${esc(href(config, w.path))}">${rotulo} ${esc(w.titulo)}</a>` : '<span></span>';
+  const body = `<article class="obra">
+<h1>${esc(work.titulo)}</h1>
+<p class="meta">${esc(formatMonth(work.data))} · ${tipo} · por ${esc(config.autor)}</p>
+<img src="${esc(href(config, `/imagens/${work.slug}-capa.jpg`))}" alt="${esc(work.imagem_alt)}" width="${size.width}" height="${size.height}">
+${marked.parse(work.markdown)}
+</article>
+<nav class="vizinhas" aria-label="Outras histórias">
+${vizinha(older, 'prev', '←')}
+${vizinha(newer, 'next', '→')}
+</nav>
+<p class="paginacao"><a href="${esc(href(config, '/'))}">Voltar para todas as histórias</a></p>`;
+  const ogImage = `/imagens/${work.slug}-og.jpg`;
+  const meta = {
+    titulo: `${work.titulo} — ${config.nome}`,
+    descricao: work.descricao,
+    path: work.path,
+    ogImage,
+    tipoOg: 'article',
+    jsonLd: [{
+      '@type': 'Article',
+      headline: work.titulo,
+      description: work.descricao,
+      datePublished: work.data,
+      inLanguage: config.idioma,
+      image: absUrl(config, ogImage),
+      mainEntityOfPage: absUrl(config, work.path),
+      author: { '@type': 'Person', name: config.autor },
+      publisher: { '@type': 'Organization', name: config.nome },
+    }],
   };
   return renderLayout(config, meta, body);
 }
