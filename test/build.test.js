@@ -85,3 +85,28 @@ test('campo faltando cita o arquivo', async () => {
   const e = await validate(o);
   assert.ok(e[0].includes('resumo'));
 });
+
+test('conteúdo alterado sem regerar é reportado', async () => {
+  const o = await setup(2);
+  await build(o);
+  const f = join(o.contentDir, readdirSync(o.contentDir).find((n) => n.endsWith('obra-1.md')));
+  writeFileSync(f, readFileSync(f, 'utf8').replace('Obra 1', 'Obra Um Alterada'));
+  const e = await validate(o);
+  assert.ok(e.some((m) => m.includes('desatualizad') && m.includes('conto/obra-1/index.html')), e.join('\n'));
+});
+
+test('endereço publicado que some é reportado', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const o = await setup(2);
+  await build(o);
+  const git = (...a) => execFileSync('git', a, { cwd: o.root, stdio: 'pipe' });
+  git('init', '-q'); git('add', '.');
+  git('-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-qm', 'x');
+  const antigo = join(o.contentDir, readdirSync(o.contentDir).find((n) => n.endsWith('obra-2.md')));
+  const novo = antigo.replace('obra-2.md', 'renomeada.md');
+  writeFileSync(novo, readFileSync(antigo, 'utf8').replace('slug: obra-2', 'slug: renomeada'));
+  rmSync(antigo);
+  await build(o);
+  const e = await validate(o);
+  assert.ok(e.some((m) => m.includes('/conto/obra-2/') && m.includes('endereço')), e.join('\n'));
+});

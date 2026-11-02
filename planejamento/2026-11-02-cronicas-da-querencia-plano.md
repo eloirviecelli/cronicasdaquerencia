@@ -16,7 +16,7 @@
 - URL-base hoje `https://eloirviecelli.github.io/cronicasdaquerencia`; deve ser lida só de `site.config.json` (campo `url`). Todos os links internos, `canonical`, sitemap e feed respeitam o caminho-base (`/cronicasdaquerencia`) e funcionam também com caminho-base vazio (domínio próprio).
 - Até 10 obras por página (`porPagina: 10`), da mais nova para a mais antiga (`data` desc, desempate por `slug`).
 - Endereços: `/`, `/pagina/N/` (N≥2), `/conto/<slug>/`, `/cronica/<slug>/`, `/sobre/`, `404.html`, `sitemap.xml`, `robots.txt`, `feed.xml`. Slugs sem acentos. Endereço publicado nunca muda.
-- Cores: fundo `#f1e6d0`, borda `#d9c9a8`, texto `#3b2a1e`, apoio `#5d4630`, secundário `#7a5c44`, destaque `#b5452a`. Fonte `Georgia, "Times New Roman", serif`.
+- Cores: fundo `#f1e6d0`, borda `#d9c9a8`, texto `#3b2a1e`, apoio `#5d4630`, secundário `#7a5c44`, destaque `#a63f26`. Fonte `Georgia, "Times New Roman", serif`.
 - Sem recursos de terceiros em tempo de leitura. Toda imagem com `alt`, `width` e `height`; `loading="lazy"` nas miniaturas abaixo da dobra.
 - `docs/` é gerado e versionado; nunca editar à mão. Só o Eloir pede commit/push (os passos de commit abaixo valem quando ele autorizar a execução).
 - Site funciona com zero obras.

@@ -37,7 +37,7 @@ Referência: mockup A mostrado na conversa (arquivo `.superpowers/brainstorm/999
 - **Cores base** (valores do mockup, ajustáveis pelo builder sem mudar o clima):
   - fundo `#f1e6d0`, borda `#d9c9a8`
   - texto principal `#3b2a1e`, texto de apoio `#5d4630`, texto secundário `#7a5c44`
-  - destaque (ferrugem) `#b5452a`, usado em filetes, datas, tipo e links
+  - destaque (ferrugem, escurecido de #b5452a para contraste AA) `#a63f26`, usado em filetes, datas, tipo e links
   - cores de miniatura de apoio, para o carregamento: `#a8794f`, `#8a6a3d`
 - **Tipografia:** fonte com serifa, de clima literário. Padrão: pilha do sistema (`Georgia, "Times New Roman", serif`) sem pedido externo. **[minha escolha]**
 - **Cabeçalho:** centralizado, nome "Crônicas da Querência" em letras espaçadas, a frase do README em itálico abaixo e um filete ferrugem embaixo.

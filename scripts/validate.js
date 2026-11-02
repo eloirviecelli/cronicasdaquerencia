@@ -1,5 +1,8 @@
-import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { readdirSync, readFileSync, existsSync, statSync, mkdtempSync, rmSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join, relative } from 'node:path';
+import { build } from './build.js';
 import { fileURLToPath } from 'node:url';
 import { loadConfig, basePath } from './lib/config.js';
 import { loadWorks } from './lib/content.js';
@@ -64,7 +67,46 @@ export async function validate({ root, contentDir, outDir }) {
       }
     }
   }
+  errors.push(...await staleOutput({ root, contentDir, outDir }));
+  errors.push(...frozenUrls(root, config, outDir));
   return errors;
+}
+
+// Gera o site num diretório temporário e compara com a saída publicada.
+async function staleOutput({ root, contentDir, outDir }) {
+  if (!existsSync(outDir)) return [];
+  const tmp = mkdtempSync(join(tmpdir(), 'cq-validate-'));
+  try {
+    await build({ root, contentDir, outDir: tmp });
+    const errors = [];
+    for (const file of walk(tmp).filter((f) => !f.endsWith('.jpg'))) {
+      const rel = relative(tmp, file);
+      const atual = join(outDir, rel);
+      if (existsSync(atual) && !readFileSync(atual).equals(readFileSync(file))) {
+        errors.push(`saída desatualizada (rode npm run build): ${rel}`);
+      }
+    }
+    return errors;
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
+// Endereços já publicados (sitemap do último commit) não podem sumir.
+function frozenUrls(root, config, outDir) {
+  const sitemap = join(outDir, 'sitemap.xml');
+  if (!existsSync(sitemap)) return [];
+  let anterior;
+  try {
+    const rel = relative(root, sitemap);
+    anterior = execFileSync('git', ['show', `HEAD:${rel}`], { cwd: root, stdio: 'pipe' }).toString();
+  } catch {
+    return [];
+  }
+  const caminhos = (xml) => [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => new URL(m[1]).pathname.replace(new RegExp(`^${basePath(config)}`), '') || '/');
+  const agora = new Set(caminhos(readFileSync(sitemap, 'utf8')));
+  return caminhos(anterior).filter((p) => !agora.has(p))
+    .map((p) => `endereço já publicado desapareceu: ${p} (endereços são congelados; crie um redirecionamento)`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
