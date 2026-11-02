@@ -1,5 +1,6 @@
 import { esc } from './html.js';
 import { href, absUrl } from './config.js';
+import { extname } from 'node:path';
 import { marked } from 'marked';
 import { renderLayout } from './layout.js';
 
@@ -69,6 +70,21 @@ export function renderListPage(config, pageWorks, page, totalPages) {
   return renderLayout(config, meta, body);
 }
 
+export function audioPath(work) {
+  return `/audio/${work.slug}${extname(work.audio)}`;
+}
+
+function renderAudio(config, work) {
+  if (!work.audio) return '';
+  const src = esc(href(config, audioPath(work)));
+  return `<div class="audio">
+<p class="audio-rotulo">Ouça esta história</p>
+<audio controls preload="none" src="${src}">Seu navegador não toca áudio. <a href="${src}" download>Baixe o áudio</a>.</audio>
+<p class="audio-baixar"><a href="${src}" download>Baixar o áudio</a></p>
+</div>
+`;
+}
+
 export function renderWorkPage(config, work, older, newer, size) {
   const tipo = work.tipo === 'cronica' ? 'crônica' : 'conto';
   const vizinha = (w, rel, rotulo) =>
@@ -76,7 +92,7 @@ export function renderWorkPage(config, work, older, newer, size) {
   const body = `<article class="obra">
 <h1>${esc(work.titulo)}</h1>
 <p class="meta">${esc(formatMonth(work.data))} · ${tipo} · por ${esc(config.autor)}</p>
-<img src="${esc(href(config, `/imagens/${work.slug}-capa.jpg`))}" alt="${esc(work.imagem_alt)}" width="${size.width}" height="${size.height}">
+${renderAudio(config, work)}<img src="${esc(href(config, `/imagens/${work.slug}-capa.jpg`))}" alt="${esc(work.imagem_alt)}" width="${size.width}" height="${size.height}">
 ${marked.parse(work.markdown)}
 </article>
 <nav class="vizinhas" aria-label="Outras histórias">

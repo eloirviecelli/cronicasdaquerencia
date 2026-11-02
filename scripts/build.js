@@ -3,7 +3,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadConfig } from './lib/config.js';
 import { loadWorks } from './lib/content.js';
-import { paginate, listPath, renderListPage, renderWorkPage, renderAboutPage, render404 } from './lib/pages.js';
+import { paginate, listPath, audioPath, renderListPage, renderWorkPage, renderAboutPage, render404 } from './lib/pages.js';
 import { buildSitemap, buildRobots, buildFeed } from './lib/seo.js';
 import { processImage, imageSize } from './lib/images.js';
 
@@ -32,6 +32,11 @@ export async function build({ root, contentDir, outDir }) {
   for (let i = 0; i < works.length; i++) {
     const w = works[i];
     const imgs = await processImage(join(contentDir, 'imagens', w.imagem), w.slug, outDir);
+    if (w.audio) {
+      const dest = join(outDir, audioPath(w));
+      mkdirSync(dirname(dest), { recursive: true });
+      copyFileSync(join(contentDir, 'audio', w.audio), dest);
+    }
     const size = await imageSize(join(outDir, imgs.capa));
     write(outDir, dirOf(w.path), renderWorkPage(config, w, works[i + 1] || null, works[i - 1] || null, size));
   }

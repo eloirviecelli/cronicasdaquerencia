@@ -6,7 +6,7 @@ import { build } from './build.js';
 import { fileURLToPath } from 'node:url';
 import { loadConfig, basePath } from './lib/config.js';
 import { loadWorks } from './lib/content.js';
-import { paginate, listPath } from './lib/pages.js';
+import { paginate, listPath, audioPath } from './lib/pages.js';
 
 function walk(dir) {
   return readdirSync(dir).flatMap((f) => {
@@ -35,6 +35,7 @@ export async function validate({ root, contentDir, outDir }) {
     if (!w.arquivo.endsWith(`-${w.slug}.md`)) errors.push(`${w.arquivo}: o nome do arquivo deve terminar em -${w.slug}.md`);
     if (w.resumo.length < 80 || w.resumo.length > 300) errors.push(`${w.arquivo}: resumo deve ter 80–300 caracteres (tem ${w.resumo.length})`);
     if (w.descricao.length > 160) errors.push(`${w.arquivo}: descricao passa de 160 caracteres (${w.descricao.length})`);
+    if (w.audio && !existsSync(join(contentDir, 'audio', w.audio))) errors.push(`${w.arquivo}: áudio não encontrado: content/audio/${w.audio}`);
     if (!existsSync(join(contentDir, 'imagens', w.imagem))) errors.push(`${w.arquivo}: imagem não encontrada: content/imagens/${w.imagem}`);
   }
 
@@ -43,6 +44,7 @@ export async function validate({ root, contentDir, outDir }) {
   for (let n = 2; n <= pages.length; n++) expected.push(`pagina/${n}/index.html`);
   for (const w of works) {
     expected.push(fileFor('', w.path).replace(/^\//, ''));
+    if (w.audio) expected.push(audioPath(w).replace(/^\//, ''));
     for (const s of ['thumb', 'capa', 'og']) expected.push(`imagens/${w.slug}-${s}.jpg`);
   }
   for (const e of expected) if (!existsSync(join(outDir, e))) errors.push(`saída desatualizada: falta ${e}`);
@@ -67,7 +69,8 @@ export async function validate({ root, contentDir, outDir }) {
       }
     }
   }
-  errors.push(...await staleOutput({ root, contentDir, outDir }));
+  // só compara com uma geração nova quando o conteúdo está íntegro
+  if (!errors.length) errors.push(...await staleOutput({ root, contentDir, outDir }));
   errors.push(...frozenUrls(root, config, outDir));
   return errors;
 }
@@ -79,7 +82,7 @@ async function staleOutput({ root, contentDir, outDir }) {
   try {
     await build({ root, contentDir, outDir: tmp });
     const errors = [];
-    for (const file of walk(tmp).filter((f) => !f.endsWith('.jpg'))) {
+    for (const file of walk(tmp).filter((f) => !/\.(jpg|mp3|ogg|m4a|wav)$/.test(f))) {
       const rel = relative(tmp, file);
       const atual = join(outDir, rel);
       if (existsSync(atual) && !readFileSync(atual).equals(readFileSync(file))) {
