@@ -5,6 +5,12 @@
     <link>https://eloirviecelli.github.io/cronicasdaquerencia/</link>
     <description>Crônicas e contos sobre o campo, a cultura gaúcha e a alma do homem simples</description>
     <language>pt-BR</language>
-
+    <item>
+      <title>Um Café, uma Gaita e o Universo: Crônica sobre a Vida no Campo e Tradição Gaúcha</title>
+      <link>https://eloirviecelli.github.io/cronicasdaquerencia/cronica/um-cafe-uma-gaita-e-o-universo/</link>
+      <guid isPermaLink="true">https://eloirviecelli.github.io/cronicasdaquerencia/cronica/um-cafe-uma-gaita-e-o-universo/</guid>
+      <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+      <description>Numa noite de nuvens e lua escondida, um café esfria na varanda enquanto uma gaita distante solta a alma de um homem para viajar entre estrelas e descobrir que o universo também mora dentro dele.</description>
+    </item>
   </channel>
 </rss>

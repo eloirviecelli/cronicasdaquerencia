@@ -13,7 +13,7 @@ export async function processImage(srcFile, slug, outDir) {
   };
   const jpeg = { quality: 82, mozjpeg: true };
   const src = () => sharp(srcFile).rotate();
-  await src().resize(192, 192, { fit: 'cover' }).jpeg(jpeg).toFile(join(outDir, result.thumb));
+  await src().resize(192, 192, { fit: 'cover', position: sharp.strategy.attention }).jpeg(jpeg).toFile(join(outDir, result.thumb));
   await src().resize({ width: 960, withoutEnlargement: true }).jpeg(jpeg).toFile(join(outDir, result.capa));
   await src().resize(1200, 630, { fit: 'cover' }).jpeg(jpeg).toFile(join(outDir, result.og));
   return result;
