@@ -46,7 +46,7 @@ function renderPagination(config, page, total) {
 export function renderListPage(config, pageWorks, page, totalPages) {
   const first = page === 1;
   const body = [
-    `<h1>${first ? esc(config.nome) : `Página ${page}`}</h1>`,
+    `<h1>${first ? esc(config.chamada || config.nome) : `Página ${page}`}</h1>`,
     pageWorks.length
       ? `<ul class="lista">\n${pageWorks.map((w) => renderItem(config, w)).join('\n')}\n</ul>`
       : '<p class="vazio">Em breve, a primeira história chega por aqui.</p>',
