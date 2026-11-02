@@ -48,3 +48,9 @@ test('basePath, href e absUrl', () => {
   assert.equal(href(cfg('https://x.github.io/repo/'), '/a/'), '/repo/a/');
   assert.equal(absUrl(cfg('https://x.github.io/repo/'), '/a/'), 'https://x.github.io/repo/a/');
 });
+
+test('audio é opcional e lido quando presente', () => {
+  const base = fx('2026-11-teste-um.md');
+  assert.equal(parseWork(base, 'a.md').audio, undefined);
+  assert.equal(parseWork(base.replace('imagem_alt:', 'audio: x.mp3\nimagem_alt:'), 'a.md').audio, 'x.mp3');
+});

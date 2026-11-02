@@ -39,3 +39,15 @@ test('JSON-LD Article válido', () => {
   assert.equal(ld.inLanguage, 'pt-BR');
   assert.equal(ld.image, 'https://x.github.io/repo/imagens/a-og.jpg');
 });
+
+test('obra com áudio mostra o player logo abaixo do título', () => {
+  const h = renderWorkPage(config, w('a', { audio: 'a.mp3' }), null, null, size);
+  assert.match(h, /<audio controls preload="none" src="\/repo\/audio\/a\.mp3">/);
+  assert.ok(h.indexOf('</h1>') < h.indexOf('<audio'), 'áudio depois do h1');
+  assert.ok(h.indexOf('<audio') < h.indexOf('<img src="/repo/imagens/a-capa.jpg"'), 'áudio antes da imagem');
+  assert.match(h, /href="\/repo\/audio\/a\.mp3"[^>]*download/);
+});
+
+test('obra sem áudio não tem player', () => {
+  assert.doesNotMatch(renderWorkPage(config, w('a'), null, null, size), /<audio/);
+});

@@ -110,3 +110,16 @@ test('endereço publicado que some é reportado', async () => {
   const e = await validate(o);
   assert.ok(e.some((m) => m.includes('/conto/obra-2/') && m.includes('endereço')), e.join('\n'));
 });
+
+test('áudio é copiado para a saída e áudio faltando é reportado', async () => {
+  const o = await setup(1, undefined, (m) => m.replace('imagem_alt:', 'audio: som.mp3\nimagem_alt:'));
+  mkdirSync(join(o.contentDir, 'audio'), { recursive: true });
+  writeFileSync(join(o.contentDir, 'audio', 'som.mp3'), 'fake');
+  await build(o);
+  assert.ok(existsSync(join(o.outDir, 'audio/obra-1.mp3')));
+  assert.match(readFileSync(join(o.outDir, 'conto/obra-1/index.html'), 'utf8'), /\/audio\/obra-1\.mp3/);
+  assert.deepEqual(await validate(o), []);
+  rmSync(join(o.contentDir, 'audio', 'som.mp3'));
+  const e = await validate(o);
+  assert.ok(e.some((m) => m.includes('som.mp3')), e.join('\n'));
+});
