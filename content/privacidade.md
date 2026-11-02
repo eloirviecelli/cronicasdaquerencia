@@ -6,4 +6,4 @@ Esta página explica, de forma simples, o que acontece com os seus dados quando 
 
 **Para que servem os números.** Só para entender quais histórias chegam a mais gente, para escrever melhor.
 
-**Dúvidas ou pedidos sobre seus dados** (LGPD) podem ser enviados ao autor, Eloir, pelos contatos informados na página Sobre.
+**Seus direitos (LGPD).** Como o site não guarda dados pessoais dos leitores, não há cadastros nem informações suas para consultar, corrigir ou apagar.
