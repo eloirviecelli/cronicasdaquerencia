@@ -60,3 +60,9 @@ test('página 1 tem JSON-LD Blog', () => {
   const h = renderListPage(config, many(1), 1, 1);
   assert.match(h, /"@type":"Blog"/);
 });
+
+test('h1 da página 1 usa a chamada da configuração', () => {
+  const h = renderListPage({ ...config, chamada: 'Momentos para refletir, imaginar, sonhar...' }, many(1), 1, 1);
+  assert.match(h, /<h1>Momentos para refletir, imaginar, sonhar\.\.\.<\/h1>/);
+  assert.match(h, /<title>Crônicas da Querência<\/title>/);
+});
