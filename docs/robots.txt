@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eloirviecelli.github.io/cronicasdaquerencia/sitemap.xml
