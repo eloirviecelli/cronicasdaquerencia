@@ -49,8 +49,6 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
 .audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: rgba(255, 255, 255, .25); }
 .audio-rotulo { margin: 0 0 8px; font-size: .85rem; font-style: italic; color: var(--secundario); }
 .audio audio { width: 100%; }
-.audio-baixar { margin: 6px 0 0; font-size: .8rem; text-align: right; }
 .audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: rgba(255, 255, 255, .25); }
 .audio-rotulo { margin: 0 0 8px; font-size: .85rem; font-style: italic; color: var(--secundario); }
 .audio audio { width: 100%; }
-.audio-baixar { margin: 6px 0 0; font-size: .8rem; text-align: right; }
