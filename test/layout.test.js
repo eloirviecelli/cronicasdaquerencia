@@ -51,18 +51,12 @@ test('JSON-LD não fecha o script', () => {
   assert.equal(h.match(/<\/script>/g).length, 1);
 });
 
-test('sem analytics: nenhum aviso nem script do Google', () => {
-  const h = renderLayout(config, meta, body);
-  assert.doesNotMatch(h, /aviso-cookies|googletagmanager/);
+test('sem goatcounter: nenhum script de contagem', () => {
+  assert.doesNotMatch(renderLayout(config, meta, body), /goatcounter|gc\.zgo\.at/);
 });
 
-test('com analytics: aviso escondido e Google só carregado por script após aceite', () => {
-  const h = renderLayout({ ...config, analytics: 'G-TESTE12345' }, meta, body);
-  assert.match(h, /<div id="aviso-cookies"[^>]*\bhidden\b/);
-  assert.match(h, /data-aceitar/);
-  assert.match(h, /data-recusar/);
-  assert.match(h, /G-TESTE12345/);
-  assert.doesNotMatch(h, /<script[^>]*src="https:\/\/www\.googletagmanager/);
-  assert.match(h, /href="\/repo\/privacidade\/"/);
-  assert.match(h, /data-reabrir/);
+test('com goatcounter: script de contagem, sem cookies nem aviso', () => {
+  const h = renderLayout({ ...config, goatcounter: 'https://nome.goatcounter.com/count' }, meta, body);
+  assert.match(h, /<script data-goatcounter="https:\/\/nome\.goatcounter\.com\/count" async src="https:\/\/gc\.zgo\.at\/count\.js"><\/script>/);
+  assert.doesNotMatch(h, /aviso-cookies|googletagmanager|data-reabrir|localStorage/);
 });
