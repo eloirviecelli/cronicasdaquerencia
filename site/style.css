@@ -1,0 +1,48 @@
+:root {
+  --fundo: #f1e6d0;
+  --borda: #d9c9a8;
+  --texto: #3b2a1e;
+  --apoio: #5d4630;
+  --secundario: #7a5c44;
+  --destaque: #a63f26;
+}
+* { box-sizing: border-box; }
+html { font-size: 112.5%; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+}
+a { color: var(--destaque); }
+a:focus-visible { outline: 3px solid var(--destaque); outline-offset: 2px; }
+.pular { position: absolute; left: -999px; }
+.pular:focus { left: 8px; top: 8px; background: var(--fundo); padding: 8px; z-index: 10; }
+.topo { text-align: center; padding: 28px 16px 14px; max-width: 46rem; margin: 0 auto; border-bottom: 1px solid var(--destaque); }
+.marca { color: var(--texto); text-decoration: none; font-size: 1.7rem; letter-spacing: .12em; }
+.frase { margin: 6px 0 0; font-style: italic; font-size: .85rem; color: var(--secundario); }
+main { max-width: 46rem; margin: 0 auto; padding: 24px 16px 40px; }
+main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
+.lista { list-style: none; margin: 0; padding: 0; }
+.item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--borda); }
+.item img { flex: none; border-radius: 2px; background: #a8794f; }
+.item h2 { font-size: 1.15rem; margin: 0 0 4px; line-height: 1.3; }
+.item h2 a { color: var(--texto); text-decoration: none; }
+.item h2 a:hover { color: var(--destaque); }
+.item p { margin: 0; color: var(--apoio); font-size: .9rem; }
+.item .meta { margin-top: 6px; font-size: .78rem; color: var(--destaque); }
+.vazio { text-align: center; font-style: italic; color: var(--secundario); padding: 40px 0; }
+.paginacao { margin-top: 24px; text-align: center; font-size: .9rem; color: var(--secundario); }
+.paginacao a, .paginacao span { display: inline-block; min-width: 44px; min-height: 44px; line-height: 44px; padding: 0 6px; }
+.obra { max-width: 34rem; margin: 0 auto; }
+.obra .meta { color: var(--destaque); font-size: .85rem; margin: 0 0 18px; }
+.obra img { max-width: 100%; height: auto; border-radius: 2px; margin-bottom: 18px; }
+.obra p { margin: 0 0 1.1em; }
+.vizinhas { display: flex; justify-content: space-between; gap: 16px; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--borda); font-size: .9rem; }
+.vizinhas a { display: inline-block; min-height: 44px; line-height: 1.4; padding: 10px 0; }
+.rodape { text-align: center; font-size: .8rem; color: var(--secundario); padding: 16px 16px 32px; border-top: 1px solid var(--borda); max-width: 46rem; margin: 0 auto; }
+@media (max-width: 480px) {
+  html { font-size: 105%; }
+  .item { gap: 12px; }
+}

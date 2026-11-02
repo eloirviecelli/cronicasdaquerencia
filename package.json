@@ -1,0 +1,16 @@
+{
+  "name": "cronicasdaquerencia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "validate": "node scripts/validate.js",
+    "serve": "node scripts/serve.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "marked": "^18.1.2",
+    "sharp": "^0.35.5"
+  }
+}
