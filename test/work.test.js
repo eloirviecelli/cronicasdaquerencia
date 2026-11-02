@@ -45,7 +45,8 @@ test('obra com áudio mostra o player logo abaixo do título', () => {
   assert.match(h, /<audio controls preload="none" src="\/repo\/audio\/a\.mp3">/);
   assert.ok(h.indexOf('</h1>') < h.indexOf('<audio'), 'áudio depois do h1');
   assert.ok(h.indexOf('<audio') < h.indexOf('<img src="/repo/imagens/a-capa.jpg"'), 'áudio antes da imagem');
-  assert.match(h, /href="\/repo\/audio\/a\.mp3"[^>]*download/);
+  assert.doesNotMatch(h, /Baixar|Baixe|download/);
+  assert.doesNotMatch(h, /<a [^>]*audio\//);
 });
 
 test('obra sem áudio não tem player', () => {

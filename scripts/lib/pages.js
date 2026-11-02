@@ -79,8 +79,7 @@ function renderAudio(config, work) {
   const src = esc(href(config, audioPath(work)));
   return `<div class="audio">
 <p class="audio-rotulo">Ouça esta história</p>
-<audio controls preload="none" src="${src}">Seu navegador não toca áudio. <a href="${src}" download>Baixe o áudio</a>.</audio>
-<p class="audio-baixar"><a href="${src}" download>Baixar o áudio</a></p>
+<audio controls preload="none" src="${src}">Seu navegador não toca áudio.</audio>
 </div>
 `;
 }
