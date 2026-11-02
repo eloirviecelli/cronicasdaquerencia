@@ -106,7 +106,12 @@ function frozenUrls(root, config, outDir) {
   } catch {
     return [];
   }
-  const caminhos = (xml) => [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => new URL(m[1]).pathname.replace(new RegExp(`^${basePath(config)}`), '') || '/');
+  // cada sitemap tem o seu próprio caminho-base (a 1ª <loc> é sempre a página inicial)
+  const caminhos = (xml) => {
+    const locs = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    const base = (locs[0] || '/').replace(/\/+$/, '');
+    return locs.map((p) => p.slice(base.length) || '/');
+  };
   const agora = new Set(caminhos(readFileSync(sitemap, 'utf8')));
   return caminhos(anterior).filter((p) => !agora.has(p))
     .map((p) => `endereço já publicado desapareceu: ${p} (endereços são congelados; crie um redirecionamento)`);

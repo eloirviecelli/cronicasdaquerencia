@@ -1,6 +1,6 @@
 # Crônicas da Querência — guia para IA
 
-Site estático de crônicas e contos sobre o campo e a cultura gaúcha. Autor: Eloir (coordenador; fornece texto e imagem, a IA cuida do resto). Uma obra nova por mês. Hospedado no GitHub Pages, servindo a pasta `docs/` da branch `main`.
+Site estático de crônicas e contos sobre o campo e a cultura gaúcha. Autor: Eloir (coordenador; fornece texto e imagem, a IA cuida do resto). Uma obra nova por mês. Hospedado no GitHub Pages (https://www.cronicasdaquerencia.com.br), servindo a pasta `docs/` da branch `main`.
 
 Documentos de origem: `planejamento/2026-11-02-cronicas-da-querencia-design.md` (o quê e por quê) e `planejamento/2026-11-02-cronicas-da-querencia-plano.md` (como foi construído).
 
@@ -50,13 +50,13 @@ Ilustração pictórica suave, cores de terra e ferrugem, luz de fim de tarde, p
 - Nunca adicionar recursos de terceiros (fontes, scripts, rastreadores).
 - Toda imagem precisa de `imagem_alt`.
 
-## Trocar para o domínio próprio (cronicasdaquerencia.com.br)
+## Domínio próprio (www.cronicasdaquerencia.com.br)
 
-1. Em `site.config.json`, mude `url` para `https://cronicasdaquerencia.com.br`.
-2. Crie o arquivo `CNAME` na raiz com `cronicasdaquerencia.com.br` (o build o copia para `docs/`).
-3. O Eloir configura o DNS no registrador e, em Settings → Pages do repositório, informa o domínio personalizado e ativa HTTPS.
-4. `npm run build`, `npm run validate`, commit e push (com autorização do Eloir).
-5. Reenviar o sitemap no Search Console e no Bing Webmaster Tools.
+O site usa `https://www.cronicasdaquerencia.com.br` (campo `url` de `site.config.json`). O arquivo `CNAME` na raiz do repositório contém `www.cronicasdaquerencia.com.br` e o build o copia para `docs/`. **Nunca apague o `CNAME`**, ou o GitHub Pages perde o domínio.
+
+DNS no Registro.br: `CNAME www → eloirviecelli.github.io.` e quatro registros `A` no domínio raiz (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) para o redirecionamento do raiz para o `www`. Em Settings → Pages do repositório, domínio personalizado `www.cronicasdaquerencia.com.br` com *Enforce HTTPS* ligado.
+
+Ao mudar de endereço de novo: altere `url`, ajuste o `CNAME`, `npm run build`, `npm run validate`, commit e push (com autorização do Eloir) e reenvie o sitemap nos buscadores.
 
 ## Buscadores
 

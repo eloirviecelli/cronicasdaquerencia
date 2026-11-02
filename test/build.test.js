@@ -123,3 +123,16 @@ test('áudio é copiado para a saída e áudio faltando é reportado', async () 
   const e = await validate(o);
   assert.ok(e.some((m) => m.includes('som.mp3')), e.join('\n'));
 });
+
+test('troca de domínio não conta como endereço removido', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const o = await setup(2);
+  await build(o);
+  const git = (...a) => execFileSync('git', a, { cwd: o.root, stdio: 'pipe' });
+  git('init', '-q'); git('add', '.');
+  git('-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-qm', 'x');
+  const cfgFile = join(o.root, 'site.config.json');
+  writeFileSync(cfgFile, readFileSync(cfgFile, 'utf8').replace('https://x.github.io/repo', 'https://www.exemplo.com.br'));
+  await build(o);
+  assert.deepEqual(await validate(o), []);
+});
