@@ -47,7 +47,7 @@ Ilustração pictórica suave, cores de terra e ferrugem, luz de fim de tarde, p
 
 - **Endereços congelados:** depois de publicada, o `slug` e o `tipo` de uma obra não mudam (a URL é `/<tipo>/<slug>/`). Se precisar mudar, deixe uma página de redirecionamento no endereço antigo com `canonical` para o novo.
 - Ordem: lista da obra mais nova para a mais antiga (`data` desc, desempate por `slug`).
-- Nunca adicionar recursos de terceiros (fontes, scripts, rastreadores).
+- Nunca adicionar recursos de terceiros (fontes, scripts, rastreadores). Única exceção, decidida pelo Eloir: o contador de visitas GoatCounter (sem cookies, sem aviso de consentimento), ligado pelo campo `goatcounter` de `site.config.json`; sem o campo, nada é carregado.
 - Toda imagem precisa de `imagem_alt`.
 
 ## Domínio próprio (www.cronicasdaquerencia.com.br)

@@ -38,34 +38,8 @@
 
 </main>
 <footer class="rodape">
-<p>© Eloir · <a href="/sobre/">Sobre</a> · <a href="/privacidade/">Privacidade</a> · <button type="button" class="link" data-reabrir>Cookies</button> · <a href="/feed.xml">Feed RSS</a></p>
+<p>© Eloir · <a href="/sobre/">Sobre</a> · <a href="/privacidade/">Privacidade</a> · <a href="/feed.xml">Feed RSS</a></p>
 </footer>
-<div id="aviso-cookies" class="aviso-cookies" role="region" aria-label="Aviso de cookies" hidden>
-<p>Este site usa o Google Analytics, com cookies, para saber quantas pessoas leem as histórias. Só funciona se você aceitar. <a href="/privacidade/">Saiba mais</a>.</p>
-<p class="acoes"><button type="button" data-aceitar>Aceitar</button> <button type="button" data-recusar>Recusar</button></p>
-</div>
-<script>
-(function () {
-  var ID = "G-69L80W3KPG", K = 'cq-consent', b = document.getElementById('aviso-cookies'), s = null;
-  try { s = localStorage.getItem(K); } catch (e) {}
-  function salvar(v) { try { localStorage.setItem(K, v); } catch (e) {} }
-  function carregar() {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { dataLayer.push(arguments); };
-    gtag('js', new Date()); gtag('config', ID);
-    var t = document.createElement('script');
-    t.async = true; t.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
-    document.head.appendChild(t);
-  }
-  function perguntar() {
-    b.hidden = false;
-    b.querySelector('[data-aceitar]').onclick = function () { salvar('granted'); b.hidden = true; carregar(); };
-    b.querySelector('[data-recusar]').onclick = function () { salvar('denied'); b.hidden = true; };
-  }
-  if (s === 'granted') carregar(); else if (!s) perguntar();
-  var r = document.querySelector('[data-reabrir]');
-  if (r) r.onclick = function () { try { localStorage.removeItem(K); } catch (e) {} perguntar(); };
-})();
-</script>
+<script data-goatcounter="https://eloirviecelli.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

@@ -54,10 +54,3 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
 .audio-rotulo { margin: 0 0 8px; font-size: .85rem; font-style: italic; color: var(--secundario); }
 .audio audio { width: 100%; }
 .audio-baixar { margin: 6px 0 0; font-size: .8rem; text-align: right; }
-.aviso-cookies { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--fundo); border-top: 2px solid var(--destaque); padding: 12px 16px; font-size: .85rem; box-shadow: 0 -2px 8px rgba(59, 42, 30, .15); }
-.aviso-cookies[hidden] { display: none; }
-.aviso-cookies p { margin: 0 auto 8px; max-width: 46rem; }
-.aviso-cookies .acoes { display: flex; gap: 8px; }
-.aviso-cookies button { min-height: 44px; padding: 0 18px; font: inherit; border: 1px solid var(--destaque); border-radius: 3px; background: var(--destaque); color: #fff; cursor: pointer; }
-.aviso-cookies button[data-recusar] { background: transparent; color: var(--destaque); }
-button.link { background: none; border: 0; padding: 0; font: inherit; color: var(--destaque); text-decoration: underline; cursor: pointer; }
