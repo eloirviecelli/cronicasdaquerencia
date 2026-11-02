@@ -105,3 +105,23 @@ ${vizinha(newer, 'next', '→')}
   };
   return renderLayout(config, meta, body);
 }
+
+export function renderAboutPage(config, markdown) {
+  const body = `<article class="obra">\n<h1>Sobre</h1>\n${marked.parse(markdown)}\n</article>`;
+  return renderLayout(config, {
+    titulo: `Sobre — ${config.nome}`,
+    descricao: config.frase,
+    path: '/sobre/',
+  }, body);
+}
+
+export function render404(config) {
+  const body = `<h1>Página não encontrada</h1>
+<p class="vazio">Esta trilha não leva a lugar nenhum. <a href="${esc(href(config, '/'))}">Volte para as histórias</a>.</p>`;
+  return renderLayout(config, {
+    titulo: `Página não encontrada — ${config.nome}`,
+    descricao: config.frase,
+    path: '/404.html',
+    noindex: true,
+  }, body);
+}
