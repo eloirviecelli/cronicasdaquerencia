@@ -3,7 +3,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadConfig } from './lib/config.js';
 import { loadWorks } from './lib/content.js';
-import { paginate, listPath, audioPath, renderListPage, renderWorkPage, renderAboutPage, render404 } from './lib/pages.js';
+import { paginate, listPath, audioPath, renderListPage, renderWorkPage, renderAboutPage, renderPrivacyPage, render404 } from './lib/pages.js';
 import { buildSitemap, buildRobots, buildFeed } from './lib/seo.js';
 import { processImage, imageSize } from './lib/images.js';
 
@@ -43,6 +43,8 @@ export async function build({ root, contentDir, outDir }) {
 
   const sobre = join(contentDir, 'sobre.md');
   write(outDir, dirOf('/sobre/'), renderAboutPage(config, existsSync(sobre) ? readFileSync(sobre, 'utf8') : ''));
+  const priv = join(contentDir, 'privacidade.md');
+  write(outDir, dirOf('/privacidade/'), renderPrivacyPage(config, existsSync(priv) ? readFileSync(priv, 'utf8') : ''));
   write(outDir, '404.html', render404(config));
   copyFileSync(STYLE, join(outDir, 'style.css'));
   write(outDir, 'sitemap.xml', buildSitemap(config, works, pages.length));

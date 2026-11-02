@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacidade — Crônicas da Querência</title>
+<meta name="description" content="Como o site Crônicas da Querência trata seus dados e cookies.">
+<link rel="canonical" href="https://www.cronicasdaquerencia.com.br/privacidade/">
+<link rel="alternate" type="application/rss+xml" title="Crônicas da Querência" href="/feed.xml">
+<link rel="stylesheet" href="/style.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crônicas da Querência">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Privacidade — Crônicas da Querência">
+<meta property="og:description" content="Como o site Crônicas da Querência trata seus dados e cookies.">
+<meta property="og:url" content="https://www.cronicasdaquerencia.com.br/privacidade/">
+<meta name="twitter:card" content="summary">
+
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+<a class="marca" href="/">Crônicas da Querência</a>
+<p class="frase">Crônicas e contos sobre o campo, a cultura gaúcha e a alma do homem simples</p>
+</header>
+<main id="conteudo">
+<article class="obra">
+<h1>Privacidade</h1>
+<p>Esta página explica, de forma simples, o que acontece com os seus dados quando você lê o <strong>Crônicas da Querência</strong>.</p>
+<p><strong>O que o site coleta.</strong> Se você aceitar o aviso de cookies, o site usa o Google Analytics, serviço do Google, para contar quantas pessoas visitam cada história, de que região do Brasil vêm e por onde chegaram. Para isso o Google grava cookies no seu navegador e recebe dados de uso, como as páginas que você abriu e o tipo de aparelho. Não pedimos nome, e-mail nem qualquer cadastro.</p>
+<p><strong>Se você recusar ou ignorar o aviso.</strong> Nada é enviado ao Google e nenhum cookie de medição é criado. O site funciona do mesmo jeito.</p>
+<p><strong>Para mudar de ideia.</strong> Use o botão &quot;Cookies&quot; no rodapé de qualquer página para ver o aviso de novo. Você também pode apagar os dados do site nas configurações do seu navegador.</p>
+<p><strong>Para que servem os dados.</strong> Só para entender quais histórias chegam a mais gente, para escrever melhor. Eles não são vendidos nem usados para anúncios por este site.</p>
+<p><strong>Dúvidas ou pedidos sobre seus dados</strong> (LGPD) podem ser enviados ao autor, Eloir, pelos contatos informados na página Sobre.</p>
+
+</article>
+</main>
+<footer class="rodape">
+<p>© Eloir · <a href="/sobre/">Sobre</a> · <a href="/privacidade/">Privacidade</a> · <button type="button" class="link" data-reabrir>Cookies</button> · <a href="/feed.xml">Feed RSS</a></p>
+</footer>
+<div id="aviso-cookies" class="aviso-cookies" role="region" aria-label="Aviso de cookies" hidden>
+<p>Este site usa o Google Analytics, com cookies, para saber quantas pessoas leem as histórias. Só funciona se você aceitar. <a href="/privacidade/">Saiba mais</a>.</p>
+<p class="acoes"><button type="button" data-aceitar>Aceitar</button> <button type="button" data-recusar>Recusar</button></p>
+</div>
+<script>
+(function () {
+  var ID = "G-69L80W3KPG", K = 'cq-consent', b = document.getElementById('aviso-cookies'), s = null;
+  try { s = localStorage.getItem(K); } catch (e) {}
+  function salvar(v) { try { localStorage.setItem(K, v); } catch (e) {} }
+  function carregar() {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', ID);
+    var t = document.createElement('script');
+    t.async = true; t.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(t);
+  }
+  function perguntar() {
+    b.hidden = false;
+    b.querySelector('[data-aceitar]').onclick = function () { salvar('granted'); b.hidden = true; carregar(); };
+    b.querySelector('[data-recusar]').onclick = function () { salvar('denied'); b.hidden = true; };
+  }
+  if (s === 'granted') carregar(); else if (!s) perguntar();
+  var r = document.querySelector('[data-reabrir]');
+  if (r) r.onclick = function () { try { localStorage.removeItem(K); } catch (e) {} perguntar(); };
+})();
+</script>
+</body>
+</html>

@@ -50,3 +50,19 @@ test('JSON-LD não fecha o script', () => {
   const h = renderLayout(config, { ...meta, jsonLd: [{ x: '</script><b>' }] }, body);
   assert.equal(h.match(/<\/script>/g).length, 1);
 });
+
+test('sem analytics: nenhum aviso nem script do Google', () => {
+  const h = renderLayout(config, meta, body);
+  assert.doesNotMatch(h, /aviso-cookies|googletagmanager/);
+});
+
+test('com analytics: aviso escondido e Google só carregado por script após aceite', () => {
+  const h = renderLayout({ ...config, analytics: 'G-TESTE12345' }, meta, body);
+  assert.match(h, /<div id="aviso-cookies"[^>]*\bhidden\b/);
+  assert.match(h, /data-aceitar/);
+  assert.match(h, /data-recusar/);
+  assert.match(h, /G-TESTE12345/);
+  assert.doesNotMatch(h, /<script[^>]*src="https:\/\/www\.googletagmanager/);
+  assert.match(h, /href="\/repo\/privacidade\/"/);
+  assert.match(h, /data-reabrir/);
+});

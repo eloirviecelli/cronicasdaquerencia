@@ -8,6 +8,7 @@ export function buildSitemap(config, works, totalPages) {
     urls.push({ loc: absUrl(config, listPath(p)), lastmod: p === 1 && works[0] ? works[0].data : undefined });
   }
   urls.push({ loc: absUrl(config, '/sobre/') });
+  urls.push({ loc: absUrl(config, '/privacidade/') });
   for (const w of works) urls.push({ loc: absUrl(config, w.path), lastmod: w.data });
   const items = urls.map((u) => `  <url><loc>${esc(u.loc)}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}</url>`);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${items.join('\n')}\n</urlset>\n`;

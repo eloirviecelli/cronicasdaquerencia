@@ -141,3 +141,12 @@ export function render404(config) {
     noindex: true,
   }, body);
 }
+
+export function renderPrivacyPage(config, markdown) {
+  const body = `<article class="obra">\n<h1>Privacidade</h1>\n${marked.parse(markdown)}\n</article>`;
+  return renderLayout(config, {
+    titulo: `Privacidade — ${config.nome}`,
+    descricao: `Como o site ${config.nome} trata seus dados e cookies.`,
+    path: '/privacidade/',
+  }, body);
+}

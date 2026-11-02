@@ -1,6 +1,39 @@
 import { esc } from './html.js';
 import { href, absUrl } from './config.js';
 
+function renderConsent(config) {
+  if (!config.analytics) return '';
+  const id = JSON.stringify(config.analytics);
+  return `<div id="aviso-cookies" class="aviso-cookies" role="region" aria-label="Aviso de cookies" hidden>
+<p>Este site usa o Google Analytics, com cookies, para saber quantas pessoas leem as histórias. Só funciona se você aceitar. <a href="${esc(href(config, '/privacidade/'))}">Saiba mais</a>.</p>
+<p class="acoes"><button type="button" data-aceitar>Aceitar</button> <button type="button" data-recusar>Recusar</button></p>
+</div>
+<script>
+(function () {
+  var ID = ${id}, K = 'cq-consent', b = document.getElementById('aviso-cookies'), s = null;
+  try { s = localStorage.getItem(K); } catch (e) {}
+  function salvar(v) { try { localStorage.setItem(K, v); } catch (e) {} }
+  function carregar() {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', ID);
+    var t = document.createElement('script');
+    t.async = true; t.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(t);
+  }
+  function perguntar() {
+    b.hidden = false;
+    b.querySelector('[data-aceitar]').onclick = function () { salvar('granted'); b.hidden = true; carregar(); };
+    b.querySelector('[data-recusar]').onclick = function () { salvar('denied'); b.hidden = true; };
+  }
+  if (s === 'granted') carregar(); else if (!s) perguntar();
+  var r = document.querySelector('[data-reabrir]');
+  if (r) r.onclick = function () { try { localStorage.removeItem(K); } catch (e) {} perguntar(); };
+})();
+</script>
+`;
+}
+
 const ldJson = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
 
 export function renderLayout(config, meta, bodyHtml) {
@@ -45,9 +78,9 @@ ${ld.join('\n')}
 ${bodyHtml}
 </main>
 <footer class="rodape">
-<p>© ${esc(config.autor)} · <a href="${esc(href(config, '/sobre/'))}">Sobre</a> · <a href="${esc(href(config, '/feed.xml'))}">Feed RSS</a></p>
+<p>© ${esc(config.autor)} · <a href="${esc(href(config, '/sobre/'))}">Sobre</a> · <a href="${esc(href(config, '/privacidade/'))}">Privacidade</a>${config.analytics ? ' · <button type="button" class="link" data-reabrir>Cookies</button>' : ''} · <a href="${esc(href(config, '/feed.xml'))}">Feed RSS</a></p>
 </footer>
-</body>
+${renderConsent(config)}</body>
 </html>
 `;
 }

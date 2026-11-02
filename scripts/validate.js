@@ -39,7 +39,7 @@ export async function validate({ root, contentDir, outDir }) {
     if (!existsSync(join(contentDir, 'imagens', w.imagem))) errors.push(`${w.arquivo}: imagem não encontrada: content/imagens/${w.imagem}`);
   }
 
-  const expected = ['index.html', '404.html', 'style.css', 'sitemap.xml', 'robots.txt', 'feed.xml', 'sobre/index.html'];
+  const expected = ['index.html', '404.html', 'style.css', 'sitemap.xml', 'robots.txt', 'feed.xml', 'sobre/index.html', 'privacidade/index.html'];
   const pages = paginate(works, config.porPagina);
   for (let n = 2; n <= pages.length; n++) expected.push(`pagina/${n}/index.html`);
   for (const w of works) {
@@ -52,7 +52,7 @@ export async function validate({ root, contentDir, outDir }) {
   const sitemap = join(outDir, 'sitemap.xml');
   if (existsSync(sitemap)) {
     const locs = [...readFileSync(sitemap, 'utf8').matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]).sort();
-    const want = [...pages.map((_, i) => listPath(i + 1)), '/sobre/', ...works.map((w) => w.path)]
+    const want = [...pages.map((_, i) => listPath(i + 1)), '/sobre/', '/privacidade/', ...works.map((w) => w.path)]
       .map((p) => config.url.replace(/\/+$/, '') + p).sort();
     if (JSON.stringify(locs) !== JSON.stringify(want)) errors.push('sitemap.xml não confere com as páginas geradas');
   }
