@@ -10,7 +10,7 @@ Documentos de origem: `planejamento/2026-11-02-cronicas-da-querencia-design.md` 
 - `content/imagens/` — imagem original de cada obra (entregue pelo Eloir).
 - `content/sobre.md` — página Sobre (texto aprovado pelo Eloir).
 - `site.config.json` — nome, frase, autor, idioma, `url` e `porPagina`. **Única** fonte da URL do site.
-- `site/style.css` — estilo (almanaque: creme `#f1e6d0`, texto `#3b2a1e`, destaque ferrugem `#a63f26`).
+- `site/style.css` — estilo (almanaque "Erva-mate e palha": fundo `#ece6cf`, cartão `#f6f1de`, texto `#2c2a1a`, verde-erva `#5c5f3b`, couro `#6b3f1f`).
 - `scripts/lib/*.js` — módulos do gerador; `scripts/build.js` gera o site; `scripts/validate.js` valida.
 - `test/` — testes (`npm test`).
 - `docs/` — **saída gerada. Nunca editar à mão.** Sempre regerar com `npm run build`.

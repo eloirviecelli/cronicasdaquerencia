@@ -24,7 +24,7 @@ test('formatMonth', () => {
 });
 
 test('item da lista completo', () => {
-  const h = renderListPage(config, [work(1, { titulo: 'Tom & "Jerry"' })], 1, 1);
+  const h = renderListPage(config, [work(1, { titulo: 'Tom & "Jerry"' })], 2, 2);
   assert.match(h, /<img [^>]*src="\/repo\/imagens\/obra-1-thumb\.jpg"[^>]*alt="Alt 1"[^>]*width="96"[^>]*height="96"|<img [^>]*alt="Alt 1"/);
   assert.match(h, /width="96"/);
   assert.match(h, /href="\/repo\/conto\/obra-1\/"/);
@@ -35,16 +35,16 @@ test('item da lista completo', () => {
 
 test('uma página só não mostra paginação', () => {
   const h = renderListPage(config, many(10), 1, 1);
-  assert.doesNotMatch(h, /próxima|anterior/);
+  assert.doesNotMatch(h, /← anterior|próxima →/);
 });
 
 test('página 1 de 2 e página 2 de 2', () => {
   const h1 = renderListPage(config, many(10), 1, 2);
   assert.match(h1, /próxima/);
-  assert.doesNotMatch(h1, /anterior/);
+  assert.doesNotMatch(h1, /← anterior/);
   assert.match(h1, /rel="next" href="https:\/\/x\.github\.io\/repo\/pagina\/2\/"/);
   const h2 = renderListPage(config, many(1), 2, 2);
-  assert.match(h2, /anterior/);
+  assert.match(h2, /← anterior/);
   assert.doesNotMatch(h2, /próxima/);
   assert.match(h2, /rel="prev" href="https:\/\/x\.github\.io\/repo\/"/);
   assert.match(h2, /aria-current="page"/);
@@ -65,4 +65,33 @@ test('h1 da página 1 usa a chamada da configuração', () => {
   const h = renderListPage({ ...config, chamada: 'Momentos para refletir, imaginar, sonhar...' }, many(1), 1, 1);
   assert.match(h, /<h1>Momentos para refletir, imaginar, sonhar\.\.\.<\/h1>/);
   assert.match(h, /<title>Crônicas da Querência<\/title>/);
+});
+
+test('página 1: a obra mais recente vira destaque e as outras ficam em histórias anteriores', () => {
+  const h = renderListPage(config, many(3), 1, 1);
+  assert.match(h, /<article class="destaque">/);
+  assert.match(h, /src="\/repo\/imagens\/obra-1-og\.jpg"[^>]*width="1200"[^>]*height="630"|width="1200"/);
+  assert.match(h, /A mais recente · novembro de 2026 · conto/);
+  assert.match(h, /Histórias anteriores/);
+  assert.equal(h.match(/class="item"/g).length, 2);
+  assert.doesNotMatch(h.match(/<article class="destaque">[^]*?<\/article>/)[0], /obra-2/);
+  assert.match(h, /obra-2-thumb\.jpg/);
+});
+
+test('destaque: chamada para ler muda se há áudio', () => {
+  assert.match(renderListPage(config, [work(1, { audio: 'a.mp3' })], 1, 1), /Ler e ouvir o conto →/);
+  assert.match(renderListPage(config, [work(1)], 1, 1), /Ler o conto →/);
+  assert.match(renderListPage(config, [work(1, { tipo: 'cronica' })], 1, 1), /Ler a crônica →/);
+});
+
+test('só uma obra: destaque sem seção de anteriores', () => {
+  const h = renderListPage(config, many(1), 1, 1);
+  assert.match(h, /class="destaque"/);
+  assert.doesNotMatch(h, /Histórias anteriores/);
+});
+
+test('página 2 não tem destaque', () => {
+  const h = renderListPage(config, many(3), 2, 2);
+  assert.doesNotMatch(h, /destaque|Histórias anteriores/);
+  assert.equal(h.match(/class="item"/g).length, 3);
 });

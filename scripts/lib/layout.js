@@ -45,6 +45,12 @@ ${ld.join('\n')}
 <header class="topo">
 <a class="marca" href="${esc(href(config, '/'))}">${esc(config.nome)}</a>
 <p class="frase">${esc(config.frase)}</p>
+<span class="sol" aria-hidden="true"></span>
+<svg class="coxilhas" viewBox="0 0 1280 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+<path d="M0 90 V52 C160 24 320 30 480 52 C640 74 800 32 960 40 C1100 47 1200 36 1280 30 V90 Z" fill="#b9b98e"/>
+<path d="M0 90 V66 C200 44 380 56 560 68 C740 80 920 52 1100 60 C1180 64 1240 58 1280 54 V90 Z" fill="#8b8e5e"/>
+<path d="M0 90 V78 C220 66 420 76 640 82 C860 88 1060 70 1280 76 V90 Z" fill="#5c5f3b"/>
+</svg>
 </header>
 <main id="conteudo">
 ${bodyHtml}

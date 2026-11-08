@@ -21,15 +21,32 @@ export function formatMonth(data) {
   return `${MESES[Number(mes) - 1]} de ${ano}`;
 }
 
-function renderItem(config, work) {
+function renderItem(config, work, titulo = 'h2') {
   return `<li class="item">
 <a href="${esc(href(config, work.path))}" tabindex="-1" aria-hidden="true"><img src="${esc(href(config, `/imagens/${work.slug}-thumb.jpg`))}" alt="${esc(work.imagem_alt)}" width="96" height="96" loading="lazy"></a>
 <div>
-<h2><a href="${esc(href(config, work.path))}">${esc(work.titulo)}</a></h2>
+<${titulo}><a href="${esc(href(config, work.path))}">${esc(work.titulo)}</a></${titulo}>
 <p>${esc(work.resumo)}</p>
 <p class="meta">${esc(formatMonth(work.data))} · ${esc(work.tipo === 'cronica' ? 'crônica' : 'conto')}</p>
 </div>
 </li>`;
+}
+
+const nomeDoTipo = (work) => (work.tipo === 'cronica' ? 'crônica' : 'conto');
+
+function renderFeatured(config, work) {
+  const link = esc(href(config, work.path));
+  const artigo = work.tipo === 'cronica' ? 'a' : 'o';
+  const chamada = `${work.audio ? 'Ler e ouvir' : 'Ler'} ${artigo} ${nomeDoTipo(work)} →`;
+  return `<article class="destaque">
+<a href="${link}" tabindex="-1" aria-hidden="true"><img src="${esc(href(config, `/imagens/${work.slug}-og.jpg`))}" alt="${esc(work.imagem_alt)}" width="1200" height="630"></a>
+<div class="destaque-texto">
+<p class="meta">A mais recente · ${esc(formatMonth(work.data))} · ${nomeDoTipo(work)}</p>
+<h2><a href="${link}">${esc(work.titulo)}</a></h2>
+<p>${esc(work.resumo)}</p>
+<p class="ler"><a href="${link}">${chamada}</a></p>
+</div>
+</article>`;
 }
 
 function renderPagination(config, page, total) {
@@ -45,13 +62,17 @@ function renderPagination(config, page, total) {
 
 export function renderListPage(config, pageWorks, page, totalPages) {
   const first = page === 1;
+  const destaque = first && pageWorks.length ? pageWorks[0] : null;
+  const lista = destaque ? pageWorks.slice(1) : pageWorks;
+  const itens = `<ul class="lista">\n${lista.map((w) => renderItem(config, w, destaque ? 'h3' : 'h2')).join('\n')}\n</ul>`;
   const body = [
     `<h1>${first ? esc(config.chamada || config.nome) : `Página ${page}`}</h1>`,
-    pageWorks.length
-      ? `<ul class="lista">\n${pageWorks.map((w) => renderItem(config, w)).join('\n')}\n</ul>`
-      : '<p class="vazio">Em breve, a primeira história chega por aqui.</p>',
+    destaque ? renderFeatured(config, destaque) : '',
+    destaque && lista.length ? '<h2 class="secao">Histórias anteriores</h2>' : '',
+    lista.length ? itens : '',
+    pageWorks.length ? '' : '<p class="vazio">Em breve, a primeira história chega por aqui.</p>',
     renderPagination(config, page, totalPages),
-  ].join('\n');
+  ].filter(Boolean).join('\n');
   const meta = {
     titulo: first ? config.nome : `Página ${page} — ${config.nome}`,
     descricao: config.frase,

@@ -19,3 +19,14 @@ for (const nome of ['texto', 'apoio', 'secundario', 'destaque']) {
     assert.ok(contraste(cor(nome), cor('fundo')) >= 4.5, `${nome}: ${contraste(cor(nome), cor('fundo')).toFixed(2)}`);
   });
 }
+
+test('--erva existe e tem contraste AA sobre fundo e cartão', () => {
+  assert.ok(contraste(cor('erva'), cor('fundo')) >= 4.5);
+  assert.ok(contraste(cor('erva'), cor('cartao')) >= 4.5);
+});
+
+for (const nome of ['texto', 'apoio', 'secundario', 'destaque']) {
+  test(`contraste AA de --${nome} sobre o cartão`, () => {
+    assert.ok(contraste(cor(nome), cor('cartao')) >= 4.5, `${nome}: ${contraste(cor(nome), cor('cartao')).toFixed(2)}`);
+  });
+}
