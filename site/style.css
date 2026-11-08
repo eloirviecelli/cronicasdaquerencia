@@ -21,8 +21,11 @@ a { color: var(--destaque); }
 a:focus-visible { outline: 3px solid var(--destaque); outline-offset: 2px; }
 .pular { position: absolute; left: -999px; }
 .pular:focus { left: 8px; top: 8px; background: var(--fundo); padding: 8px; z-index: 10; }
-.topo { text-align: center; padding: 28px 16px 14px; max-width: 46rem; margin: 0 auto; border-bottom: 1px solid var(--erva); }
-.marca { color: var(--texto); text-decoration: none; font-size: 1.7rem; letter-spacing: .12em; }
+.topo { position: relative; text-align: center; padding: 30px 16px 0; background: linear-gradient(#f4e9c9, var(--fundo)); }
+.topo .marca, .topo .frase { position: relative; z-index: 2; }
+.sol { position: absolute; left: 70%; bottom: 35px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; background: #d4a72c; opacity: .85; z-index: 0; }
+.coxilhas { position: relative; z-index: 1; display: block; width: 100%; height: 90px; margin-top: 8px; }
+.marca { color: var(--texto); text-decoration: none; font-size: 1.75rem; letter-spacing: .12em; }
 .frase { margin: 6px 0 0; font-style: italic; font-size: .85rem; color: var(--secundario); }
 main { max-width: 46rem; margin: 0 auto; padding: 24px 16px 40px; }
 main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
@@ -46,6 +49,8 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
 .rodape { text-align: center; font-size: .8rem; color: var(--secundario); padding: 16px 16px 32px; border-top: 1px solid var(--borda); max-width: 46rem; margin: 0 auto; }
 @media (max-width: 480px) {
   html { font-size: 105%; }
+  .coxilhas { height: 64px; }
+  .sol { bottom: 26px; width: 26px; height: 26px; margin-left: -13px; }
   .item { gap: 12px; }
 }
 .audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: var(--cartao); }

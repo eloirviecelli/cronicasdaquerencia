@@ -60,3 +60,16 @@ test('com goatcounter: script de contagem, sem cookies nem aviso', () => {
   assert.match(h, /<script data-goatcounter="https:\/\/nome\.goatcounter\.com\/count" async src="https:\/\/gc\.zgo\.at\/count\.js"><\/script>/);
   assert.doesNotMatch(h, /aviso-cookies|googletagmanager|data-reabrir|localStorage/);
 });
+
+test('cabeçalho com horizonte de coxilhas decorativo', () => {
+  const h = renderLayout(config, meta, body);
+  const topo = h.match(/<header class="topo">[^]*?<\/header>/)[0];
+  assert.match(topo, /<a class="marca" href="\/repo\/">Crônicas da Querência<\/a>/);
+  assert.match(topo, /<p class="frase">frase<\/p>/);
+  assert.match(topo, /<span class="sol" aria-hidden="true"><\/span>/);
+  const svg = topo.match(/<svg class="coxilhas"[^>]*>/)[0];
+  assert.match(svg, /aria-hidden="true"/);
+  assert.match(svg, /preserveAspectRatio="none"/);
+  assert.equal((topo.match(/<path /g) || []).length, 3);
+  assert.doesNotMatch(topo, /<h1|<img/);
+});
