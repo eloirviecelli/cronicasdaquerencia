@@ -27,9 +27,9 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
 .lista { list-style: none; margin: 0; padding: 0; }
 .item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--borda); }
 .item img { flex: none; border-radius: 2px; background: #a8794f; }
-.item h2 { font-size: 1.15rem; margin: 0 0 4px; line-height: 1.3; }
-.item h2 a { color: var(--texto); text-decoration: none; }
-.item h2 a:hover { color: var(--destaque); }
+.item h2, .item h3 { font-size: 1.15rem; margin: 0 0 4px; line-height: 1.3; }
+.item h2 a, .item h3 a { color: var(--texto); text-decoration: none; }
+.item h2 a:hover, .item h3 a:hover { color: var(--destaque); }
 .item p { margin: 0; color: var(--apoio); font-size: .9rem; }
 .item .meta { margin-top: 6px; font-size: .78rem; color: var(--destaque); }
 .vazio { text-align: center; font-style: italic; color: var(--secundario); padding: 40px 0; }
@@ -52,3 +52,21 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
 .audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: rgba(255, 255, 255, .25); }
 .audio-rotulo { margin: 0 0 8px; font-size: .85rem; font-style: italic; color: var(--secundario); }
 .audio audio { width: 100%; }
+
+.destaque { border: 1px solid var(--borda); border-radius: 3px; background: rgba(255, 255, 255, .25); overflow: hidden; margin-top: 18px; }
+.destaque img { display: block; width: 100%; height: 400px; object-fit: cover; }
+.destaque-texto { padding: 20px 24px 24px; }
+.destaque .meta { margin: 0 0 6px; font-size: .78rem; color: var(--destaque); }
+.destaque h2 { margin: 0 0 8px; font-size: 1.7rem; line-height: 1.2; }
+.destaque h2 a { color: var(--texto); text-decoration: none; }
+.destaque h2 a:hover { color: var(--destaque); }
+.destaque-texto p { margin: 0; color: var(--apoio); }
+.destaque .ler { margin-top: 14px; }
+.destaque .ler a { display: inline-block; min-height: 44px; line-height: 44px; }
+.secao { margin: 28px 0 0; padding-bottom: 6px; border-bottom: 1px solid var(--borda); font-size: .78rem; font-weight: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--secundario); }
+@media (max-width: 480px) {
+  .destaque img { height: 190px; }
+  .destaque-texto { padding: 14px 16px 18px; }
+  .destaque h2 { font-size: 1.4rem; }
+  .item img { width: 84px; height: 84px; }
+}
