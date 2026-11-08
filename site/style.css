@@ -83,5 +83,5 @@ main h1.chamada { font-size: 1.75rem; font-weight: normal; text-align: center; m
 main h1.chamada em { color: var(--destaque); }
 @media (max-width: 480px) {
   .ornamento { width: 150px; }
-  main h1.chamada { font-size: 1.45rem; }
+  main h1.chamada { font-size: min(1.45rem, 4.4vw); white-space: nowrap; }
 }
