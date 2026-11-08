@@ -1,10 +1,12 @@
 :root {
-  --fundo: #f1e6d0;
-  --borda: #d9c9a8;
-  --texto: #3b2a1e;
-  --apoio: #5d4630;
-  --secundario: #7a5c44;
-  --destaque: #a63f26;
+  --fundo: #ece6cf;
+  --cartao: #f6f1de;
+  --borda: #d3cba9;
+  --texto: #2c2a1a;
+  --apoio: #474a2a;
+  --secundario: #5c5f3b;
+  --erva: #5c5f3b;
+  --destaque: #6b3f1f;
 }
 * { box-sizing: border-box; }
 html { font-size: 112.5%; }
@@ -19,7 +21,7 @@ a { color: var(--destaque); }
 a:focus-visible { outline: 3px solid var(--destaque); outline-offset: 2px; }
 .pular { position: absolute; left: -999px; }
 .pular:focus { left: 8px; top: 8px; background: var(--fundo); padding: 8px; z-index: 10; }
-.topo { text-align: center; padding: 28px 16px 14px; max-width: 46rem; margin: 0 auto; border-bottom: 1px solid var(--destaque); }
+.topo { text-align: center; padding: 28px 16px 14px; max-width: 46rem; margin: 0 auto; border-bottom: 1px solid var(--erva); }
 .marca { color: var(--texto); text-decoration: none; font-size: 1.7rem; letter-spacing: .12em; }
 .frase { margin: 6px 0 0; font-style: italic; font-size: .85rem; color: var(--secundario); }
 main { max-width: 46rem; margin: 0 auto; padding: 24px 16px 40px; }
@@ -46,17 +48,17 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
   html { font-size: 105%; }
   .item { gap: 12px; }
 }
-.audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: rgba(255, 255, 255, .25); }
+.audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: var(--cartao); }
 .audio-rotulo { margin: 0 0 8px; font-size: .85rem; font-style: italic; color: var(--secundario); }
 .audio audio { width: 100%; }
-.audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: rgba(255, 255, 255, .25); }
+.audio { margin: 0 0 18px; padding: 12px 14px; border: 1px solid var(--borda); border-radius: 4px; background: var(--cartao); }
 .audio-rotulo { margin: 0 0 8px; font-size: .85rem; font-style: italic; color: var(--secundario); }
 .audio audio { width: 100%; }
 
-.destaque { border: 1px solid var(--borda); border-radius: 3px; background: rgba(255, 255, 255, .25); overflow: hidden; margin-top: 18px; }
+.destaque { border: 1px solid var(--borda); border-radius: 3px; background: var(--cartao); overflow: hidden; margin-top: 18px; }
 .destaque img { display: block; width: 100%; height: 400px; object-fit: cover; }
 .destaque-texto { padding: 20px 24px 24px; }
-.destaque .meta { margin: 0 0 6px; font-size: .78rem; color: var(--destaque); }
+.destaque .meta { margin: 0 0 6px; font-size: .78rem; color: var(--erva); }
 .destaque h2 { margin: 0 0 8px; font-size: 1.7rem; line-height: 1.2; }
 .destaque h2 a { color: var(--texto); text-decoration: none; }
 .destaque h2 a:hover { color: var(--destaque); }

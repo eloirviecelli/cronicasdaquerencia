@@ -108,3 +108,7 @@ O objetivo é facilitar o trabalho de uma IA e reduzir erros.
 ## 9. O que fica a cargo do builder
 
 Escolha de fonte e ajuste fino das cores, detalhes do layout e da página de leitura, ferramenta de processamento de imagens, formato do guia de estilo das imagens, estrutura exata dos scripts e dos testes, formato do resumo (tamanho ideal) e o mecanismo de redirecionamento na futura troca de domínio.
+
+## Atualização (2026-11-08): paleta "Erva-mate e palha"
+
+Por escolha do Eloir (prancheta de variações), as cores passaram a: fundo `#ece6cf`, cartão `#f6f1de`, borda `#d3cba9`, texto `#2c2a1a`, apoio `#474a2a`, verde-erva `#5c5f3b` (filete do cabeçalho, legendas e etiqueta "A mais recente"), couro `#6b3f1f` (links e datas). Todas passam o contraste AA (≥ 4,5:1) sobre o fundo e sobre o cartão, conferido em `test/style.test.js`. Os valores da seção 3 acima são os da primeira versão.
