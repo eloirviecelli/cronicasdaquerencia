@@ -15,7 +15,7 @@ test('404 noindex e link para a lista', () => {
   const h = render404(config);
   assert.match(h, /<meta name="robots" content="noindex">/);
   assert.match(h, /href="\/repo\/"/);
-  assert.match(h, /href="\/repo\/style\.css"/);
+  assert.match(h, /href="\/repo\/style\.css\?v=[0-9a-f]{8}"/);
 });
 
 import { renderPrivacyPage } from '../scripts/lib/pages.js';

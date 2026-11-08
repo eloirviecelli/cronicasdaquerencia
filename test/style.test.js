@@ -30,3 +30,10 @@ for (const nome of ['texto', 'apoio', 'secundario', 'destaque']) {
     assert.ok(contraste(cor(nome), cor('cartao')) >= 4.5, `${nome}: ${contraste(cor(nome), cor('cartao')).toFixed(2)}`);
   });
 }
+
+test('a chamada nunca quebra de linha, em nenhuma largura', () => {
+  const regra = css.match(/main h1\.chamada \{[^}]*\}/)[0];
+  assert.match(regra, /white-space:\s*nowrap/);
+  assert.match(regra, /font-size:\s*min\(1\.75rem,\s*4\.4vw\)/);
+  assert.doesNotMatch(css.slice(css.lastIndexOf('@media (max-width: 480px)')), /h1\.chamada/);
+});

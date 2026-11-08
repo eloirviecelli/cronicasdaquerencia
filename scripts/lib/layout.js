@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { esc } from './html.js';
 import { href, absUrl } from './config.js';
 
@@ -5,6 +7,12 @@ function renderCounter(config) {
   if (!config.goatcounter) return '';
   return `<script data-goatcounter="${esc(config.goatcounter)}" async src="https://gc.zgo.at/count.js"></script>\n`;
 }
+
+// Versão do CSS na URL: quando o estilo muda, o navegador do leitor busca o arquivo novo em vez do cache.
+const CSS_VERSAO = createHash('md5')
+  .update(readFileSync(new URL('../../site/style.css', import.meta.url)))
+  .digest('hex')
+  .slice(0, 8);
 
 const ldJson = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
 
@@ -16,7 +24,7 @@ export function renderLayout(config, meta, bodyHtml) {
     meta.prev ? `<link rel="prev" href="${esc(absUrl(config, meta.prev))}">` : '',
     meta.next ? `<link rel="next" href="${esc(absUrl(config, meta.next))}">` : '',
     `<link rel="alternate" type="application/rss+xml" title="${esc(config.nome)}" href="${esc(href(config, '/feed.xml'))}">`,
-    `<link rel="stylesheet" href="${esc(href(config, '/style.css'))}">`,
+    `<link rel="stylesheet" href="${esc(href(config, '/style.css'))}?v=${CSS_VERSAO}">`,
   ].filter(Boolean);
   const og_tags = [
     ['og:type', meta.tipoOg || 'website'],
