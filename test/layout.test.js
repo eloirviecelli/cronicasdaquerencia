@@ -22,7 +22,7 @@ test('head de SEO completo', () => {
   assert.match(h, /name="twitter:card"/);
   assert.match(h, /<script type="application\/ld\+json">/);
   assert.match(h, /href="#conteudo"/);
-  assert.match(h, /<link rel="stylesheet" href="\/repo\/style\.css">/);
+  assert.match(h, /<link rel="stylesheet" href="\/repo\/style\.css\?v=[0-9a-f]{8}">/);
   assert.match(h, /type="application\/rss\+xml"/);
   assert.match(h, /name="viewport"/);
 });
@@ -37,7 +37,7 @@ test('prev/next só quando informados', () => {
 test('sem caminho-base nenhum href começa com //', () => {
   const h = renderLayout({ ...config, url: 'https://dominio.com.br' }, meta, body);
   assert.doesNotMatch(h, /href="\/\//);
-  assert.match(h, /href="\/style\.css"/);
+  assert.match(h, /href="\/style\.css\?v=[0-9a-f]{8}"/);
 });
 
 test('título com & e < escapado', () => {
