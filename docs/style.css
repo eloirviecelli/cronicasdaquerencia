@@ -77,3 +77,11 @@ main h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .5em; }
   .destaque h2 { font-size: 1.4rem; }
   .item img { width: 84px; height: 84px; }
 }
+
+.ornamento { display: block; max-width: 100%; height: auto; margin: 0 auto 6px; }
+main h1.chamada { font-size: 1.75rem; font-weight: normal; text-align: center; margin: 0 0 18px; }
+main h1.chamada em { color: var(--destaque); }
+@media (max-width: 480px) {
+  .ornamento { width: 150px; }
+  main h1.chamada { font-size: 1.45rem; }
+}
