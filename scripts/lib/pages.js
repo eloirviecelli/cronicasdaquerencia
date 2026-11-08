@@ -3,6 +3,7 @@ import { href, absUrl } from './config.js';
 import { extname } from 'node:path';
 import { marked } from 'marked';
 import { renderLayout } from './layout.js';
+import { ORNAMENTO_SVG } from './ornamento.js';
 
 const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
@@ -49,6 +50,11 @@ function renderFeatured(config, work) {
 </article>`;
 }
 
+// Palavras entre *asteriscos* viram itálico; todo o resto é escapado.
+function chamadaHtml(texto) {
+  return esc(texto).replace(/\*(.+?)\*/g, '<em>$1</em>');
+}
+
 function renderPagination(config, page, total) {
   if (total <= 1) return '';
   const nums = Array.from({ length: total }, (_, i) => i + 1).map((n) =>
@@ -66,7 +72,8 @@ export function renderListPage(config, pageWorks, page, totalPages) {
   const lista = destaque ? pageWorks.slice(1) : pageWorks;
   const itens = `<ul class="lista">\n${lista.map((w) => renderItem(config, w, destaque ? 'h3' : 'h2')).join('\n')}\n</ul>`;
   const body = [
-    `<h1>${first ? esc(config.chamada || config.nome) : `Página ${page}`}</h1>`,
+    first ? ORNAMENTO_SVG : '',
+    first ? `<h1 class="chamada">${chamadaHtml(config.chamada || config.nome)}</h1>` : `<h1>Página ${page}</h1>`,
     destaque ? renderFeatured(config, destaque) : '',
     destaque && lista.length ? '<h2 class="secao">Histórias anteriores</h2>' : '',
     lista.length ? itens : '',

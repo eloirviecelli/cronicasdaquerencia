@@ -61,10 +61,22 @@ test('página 1 tem JSON-LD Blog', () => {
   assert.match(h, /"@type":"Blog"/);
 });
 
-test('h1 da página 1 usa a chamada da configuração', () => {
-  const h = renderListPage({ ...config, chamada: 'Momentos para refletir, imaginar, sonhar...' }, many(1), 1, 1);
-  assert.match(h, /<h1>Momentos para refletir, imaginar, sonhar\.\.\.<\/h1>/);
+test('h1 da página 1 usa a chamada da configuração, com palavras em destaque', () => {
+  const h = renderListPage({ ...config, chamada: 'Momentos para *refletir*, *imaginar*, *sonhar*…' }, many(1), 1, 1);
+  assert.match(h, /<h1 class="chamada">Momentos para <em>refletir<\/em>, <em>imaginar<\/em>, <em>sonhar<\/em>…<\/h1>/);
   assert.match(h, /<title>Crônicas da Querência<\/title>/);
+});
+
+test('chamada escapa HTML e sem asteriscos fica como texto', () => {
+  const h = renderListPage({ ...config, chamada: 'A <b> & B' }, many(1), 1, 1);
+  assert.match(h, /<h1 class="chamada">A &lt;b&gt; &amp; B<\/h1>/);
+});
+
+test('ornamento de chaleira e cuia só na página 1, decorativo', () => {
+  const h1 = renderListPage(config, many(1), 1, 2);
+  assert.match(h1, /<svg class="ornamento"[^>]*aria-hidden="true"/);
+  assert.ok(h1.indexOf('class="ornamento"') < h1.indexOf('<h1'), 'ornamento antes do h1');
+  assert.doesNotMatch(renderListPage(config, many(1), 2, 2), /ornamento/);
 });
 
 test('página 1: a obra mais recente vira destaque e as outras ficam em histórias anteriores', () => {
